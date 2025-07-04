@@ -1,4 +1,4 @@
-# CRUD de Movimientos Financieros
+# Movimientos Financieros
 
 Este proyecto implementa un sistema completo de gestión de movimientos financieros (ingresos y gastos) usando Django REST Framework.
 
@@ -13,7 +13,7 @@ Este proyecto implementa un sistema completo de gestión de movimientos financie
 - **Notas**: Campo opcional para notas adicionales
 - **Campos automáticos**: Fecha de creación y actualización
 
-### Operaciones CRUD
+### Operaciones
 
 #### 1. Crear Movimiento (POST)
 
