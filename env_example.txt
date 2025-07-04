@@ -1,0 +1,12 @@
+# Configuración de PostgreSQL
+# Copia este archivo como .env y ajusta los valores según tu configuración
+
+DB_NAME=movimientos_financieros
+DB_USER=postgres
+DB_PASSWORD=tu_password
+DB_HOST=localhost
+DB_PORT=5432
+
+# Configuración de Django
+SECRET_KEY=tu-SECRET_KEY
+DEBUG=True 
