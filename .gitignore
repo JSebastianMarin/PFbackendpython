@@ -12,6 +12,7 @@ ENV/
 .env.*
 
 # Archivos de migraciones
+**/migrations/
 **/migrations/*.pyc
 **/migrations/__pycache__/
 
