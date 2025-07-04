@@ -1,0 +1,51 @@
+# Entorno virtual
+env/
+venv/
+ENV/
+
+# Archivos de base de datos
+*.sqlite3
+*.db
+
+# Archivos de configuración y variables de entorno
+.env
+.env.*
+
+# Archivos de migraciones
+**/migrations/*.pyc
+**/migrations/__pycache__/
+
+# Archivos de Python
+*.pyc
+**/__pycache__/
+
+# Archivos de logs
+*.log
+
+# Archivos de dependencias
+pip-log.txt
+db.sqlite3
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de coverage y testing
+htmlcov/
+.coverage
+.tox/
+
+# Archivos de compilación
+*.egg-info/
+build/
+dist/
+
+# Archivos de PostgreSQL
+*.dump
+*.sql 
