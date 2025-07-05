@@ -55,7 +55,7 @@ jobs:
           port: 22
           debug: true
           script: |
-            echo "${{ secrets.SSH_KEY }}" | base64 -d > /tmp/deploy_key
+            echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 -d > /tmp/deploy_key
             chmod 600 /tmp/deploy_key
             cd documents/dockers-projects/backendpy/
             sed -i '/^DOCKER_IMAGE_PFBACKENDPY=/d' .env
