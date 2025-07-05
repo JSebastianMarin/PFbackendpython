@@ -28,7 +28,7 @@ jobs:
             --build-arg DB_HOST=${{ secrets.DB_HOST }} \
             --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} \
             --build-arg DEBUG=${{ secrets.DEBUG }} \
-            -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/pfBackendPY-${{ github.event.number }}:${{ github.sha }} .
+            -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/pfbackendpy-${{ github.event.number }}:${{ github.sha }} .
 
       # 👉 Log in to DockerHub
       - name: DockerHub Login
@@ -36,7 +36,7 @@ jobs:
 
       # 👉 Push the Docker image
       - name: Push Docker image to DockerHub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/pfBackendPY-${{ github.event.number }}:${{ github.sha }}
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/pfbackendpy-${{ github.event.number }}:${{ github.sha }}
 
       # 👉 Login into tailscale
       - name: Connect to Tailscale
@@ -55,5 +55,5 @@ jobs:
           script: |
             cd documents/dockers-projects/backendpy/
             sed -i '/^DOCKER_IMAGE_PFBACKENDPY=/d' .env
-            echo "DOCKER_IMAGE_PFBACKENDPY=${{ secrets.DOCKER_USERNAME }}/pfBackendPY-${{ github.event.number }}:${{ github.sha }}" >> .env
-            docker compose up -d pfBackendPY
+            echo "DOCKER_IMAGE_PFBACKENDPY=${{ secrets.DOCKER_USERNAME }}/pfbackendpy-${{ github.event.number }}:${{ github.sha }}" >> .env
+            docker compose up -d pfbackendpy
