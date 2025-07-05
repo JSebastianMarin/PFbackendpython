@@ -1,0 +1,59 @@
+name: CD action
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [closed] # (mergeado)
+    branches: [main]
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true # Solo si se hizo merge
+    name: CD
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 👉 Build Docker image with Firebase args
+      - name: Build Docker image
+        run: |
+          docker build \
+            --build-arg DB_NAME=${{ secrets.DB_NAME }} \
+            --build-arg DB_USER=${{ secrets.DB_USER }} \
+            --build-arg DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            --build-arg DB_HOST=${{ secrets.DB_HOST }} \
+            --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} \
+            --build-arg DEBUG=${{ secrets.DEBUG }} \
+            -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/pfBackendPY-${{ github.event.number }}:${{ github.sha }} .
+
+      # 👉 Log in to DockerHub
+      - name: DockerHub Login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # 👉 Push the Docker image
+      - name: Push Docker image to DockerHub
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/pfBackendPY-${{ github.event.number }}:${{ github.sha }}
+
+      # 👉 Login into tailscale
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+      # 👉 Pull and build Docker image
+      - name: SSH to server
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd documents/dockers-projects/backendpy/
+            sed -i '/^DOCKER_IMAGE_PFBACKENDPY=/d' .env
+            echo "DOCKER_IMAGE_PFBACKENDPY=${{ secrets.DOCKER_USERNAME }}/pfBackendPY-${{ github.event.number }}:${{ github.sha }}" >> .env
+            docker compose up -d pfBackendPY
