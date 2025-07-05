@@ -18,33 +18,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Verify secrets
-        run: |
-          echo "Verifying required secrets..."
-          required_secrets=("DB_NAME" "DB_USER" "DB_PASSWORD" "DB_HOST" "DB_PORT" "SECRET_KEY" "DEBUG")
-
-          for secret in "${required_secrets[@]}"; do
-            if [ -z "${!secret}" ]; then
-              echo "❌ Secret $secret is not set"
-              exit 1
-            else
-              echo "✅ Secret $secret is set"
-            fi
-          done
-
       # 👉 Build Docker image with Firebase args
       - name: Build Docker Image
         run: |
-          docker buildx build --build-arg DB_NAME=${{ secrets.DB_NAME }} \
+          docker build \
+            --build-arg DB_NAME=${{ secrets.DB_NAME }} \
             --build-arg DB_USER=${{ secrets.DB_USER }} \
             --build-arg DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
             --build-arg DB_PORT=${{ secrets.DB_PORT }} \
             --build-arg DB_HOST=${{ secrets.DB_HOST }} \
             --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} \
             --build-arg DEBUG=${{ secrets.DEBUG }} \
-            -f Dockerfile \
-            -t ${{ secrets.DOCKER_USERNAME }}/pfbackendpy-${{ github.event.number }}:${{ github.sha }} \
-            .
+            -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/pfbackendpy-${{ github.event.number }}:${{ github.sha }} .
 
       # 👉 Log in to DockerHub
       - name: DockerHub Login
