@@ -34,12 +34,13 @@ COPY . .
 RUN sed -i 's/\r$//' entrypoint.sh && chmod +x entrypoint.sh
 
 # Establecer variables de entorno desde los argumentos
-ENV DB_NAME
-    DB_USER
-    DB_PASSWORD
-    DB_HOST
-    SECRET_KEY
-    DEBUG
+ENV DB_NAME=$DB_NAME \
+    DB_USER=$DB_USER \
+    DB_PASSWORD=$DB_PASSWORD \
+    DB_HOST=$DB_HOST \
+    DB_PORT=$DB_PORT \
+    SECRET_KEY=$SECRET_KEY \
+    DEBUG=$DEBUG
 
 EXPOSE 8000
 
