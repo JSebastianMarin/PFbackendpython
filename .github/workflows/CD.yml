@@ -47,16 +47,13 @@ jobs:
 
       # 👉 Pull and build Docker image
       - name: SSH to server
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          debug: true
           script: |
-            echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 -d > /tmp/deploy_key
-            chmod 600 /tmp/deploy_key
             cd documents/dockers-projects/backendpy/
             sed -i '/^DOCKER_IMAGE_PFBACKENDPY=/d' .env
             echo "DOCKER_IMAGE_PFBACKENDPY=${{ secrets.DOCKER_USERNAME }}/pfbackendpy-${{ github.event.number }}:${{ github.sha }}" >> .env
