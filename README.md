@@ -88,10 +88,10 @@ API REST para la gestión de movimientos financieros personales (ingresos y gast
 ## Documentación interactiva
 
 - **Swagger UI:**  
-  [http://127.0.0.1:8000/api/docs/](http://127.0.0.1:8000/api/docs/)
+  [http://127.0.0.1:8000/api/docs/]((https://pfbackendpy.uvdev.online/)/api/docs/)
 
 - **ReDoc:**  
-  [http://127.0.0.1:8000/api/redoc/](http://127.0.0.1:8000/api/redoc/)
+  [http://127.0.0.1:8000/api/redoc/]((https://pfbackendpy.uvdev.online/)/api/redoc/)
 
 ---
 
