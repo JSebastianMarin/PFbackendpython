@@ -39,6 +39,12 @@ jobs:
       - name: Push Docker image to DockerHub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/pfbackendpy-${{ github.event.number }}:${{ github.sha }}
 
+      # 👉 Add VM to known_hosts
+      - name: Add VM to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan ${{ secrets.SV_IP }} >> ~/.ssh/known_hosts
+      
       # 👉 Login into tailscale
       - name: Connect to Tailscale
         uses: tailscale/github-action@v2
