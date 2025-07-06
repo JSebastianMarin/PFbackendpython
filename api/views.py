@@ -415,7 +415,8 @@ def inicio(request):
             'movimientos': '/api/movimientos/',
             'resumen': '/api/movimientos/resumen/',
             'reporte_mensual': '/api/movimientos/reporte_mensual/',
-            'admin': '/admin/',
+            'registro': '/api/registro/',
+            'login': '/api/login/',
             'swagger': '/api/docs/',
             'redoc': '/api/redoc/',
         },
@@ -427,6 +428,8 @@ def inicio(request):
             'DELETE /api/movimientos/{id}/': 'Eliminar un movimiento',
             'GET /api/movimientos/resumen/': 'Obtener resumen de ingresos y gastos',
             'GET /api/movimientos/reporte_mensual/': 'Generar reporte mensual',
+            'POST /api/registro/': 'Registrar un nuevo usuario',
+            'POST /api/login/': 'Iniciar sesión',
         },
         'filtros_disponibles': {
             'categoria': 'ingreso o gasto',

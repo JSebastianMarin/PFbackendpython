@@ -164,6 +164,10 @@ SPECTACULAR_SETTINGS = {
         {
             'name': 'reportes',
             'description': 'Reportes y resúmenes financieros'
+        },
+        {
+            'name': 'usuarios',
+            'description': 'Operaciones para registro de usuarios y autenticación'
         }
     ],
 }
